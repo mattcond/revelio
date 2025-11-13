@@ -1,5 +1,6 @@
 # ui.py
 from shiny import ui
+import shinyswatch
 
 rule_page = ui.page_fillable(
     ui.input_text("rule", "Definisci una regola:", width="100%"), 
@@ -29,8 +30,9 @@ def main_ui():
             ui.input_action_button("load_button", "Carica dati")
         ),
         navset_page,
-        title="Revelio App",
+        title="Revelio",
         window_title="Revelio",
+        theme=shinyswatch.theme.sandstone
     )
     return app_ui
 

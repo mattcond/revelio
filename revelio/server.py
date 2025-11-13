@@ -1,5 +1,5 @@
 from shiny import reactive, render, ui
-from revelio.components.modal import modal_ui
+from revelio.components.modal import load_data_modal_ui
 from revelio.core.utils import get_dummy_text, get_excel_sheets
 
 def server(input, output, session):
@@ -20,7 +20,7 @@ def server(input, output, session):
     @reactive.Effect
     @reactive.event(input.load_button)
     def _():    
-        ui.modal_show(modal_ui())
+        ui.modal_show(load_data_modal_ui())
 
     @reactive.Effect
     @reactive.event(input.close_modal)
