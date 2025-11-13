@@ -1,6 +1,6 @@
 from shiny import App, ui
-from revelio.ui import app_ui as revelio_ui
-from revelio.server import server as revelio_server
+from ui import app_ui as revelio_ui
+from server import server as revelio_server
 
 
 

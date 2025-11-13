@@ -1,6 +1,8 @@
 # ui.py
 from shiny import ui
 import shinyswatch
+from pathlib import Path
+
 
 rule_page = ui.page_fillable(
     ui.input_text("rule", "Definisci una regola:", width="100%"), 
@@ -12,7 +14,7 @@ rule_page = ui.page_fillable(
 )
 
 data_page = ui.page_fillable(
-    ui.output_data_frame("data")
+    ui.output_data_frame("loaded_data")
 )
 
 navset_page = ui.navset_card_underline(
@@ -27,12 +29,19 @@ navset_page = ui.navset_card_underline(
 def main_ui():
     app_ui = ui.page_sidebar(
         ui.sidebar(
-            ui.input_action_button("load_button", "Carica dati")
+            ui.input_action_button("load_button", "Carica dati"), 
+            ui.input_select('target_column', 'Colonna target', []),
+            ui.input_action_button("add_rule", "Aggiungi regola"),
+            ui.input_action_button("test_rule", "Testa regola"),
+            fillable=True,
+            title="Menu",
         ),
         navset_page,
-        title="Revelio",
-        window_title="Revelio",
-        theme=shinyswatch.theme.sandstone
+        title="re>el!o",
+        window_title="re>",
+        fillable=True,
+        fillable_mobile=True,
+        # theme=shinyswatch.theme.cerulean
     )
     return app_ui
 

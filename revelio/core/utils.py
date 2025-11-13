@@ -28,5 +28,8 @@ def get_dummy_text():
 
 def get_excel_sheets(path):
 
-    xls = pd.ExcelFile(path)
+    with open(path, 'rb') as f:
+
+        xls = pd.ExcelFile(f)
+        
     return xls.sheet_names
