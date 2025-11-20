@@ -65,7 +65,6 @@ def load_data_modal_ui():
 
     modal = ui.modal(
         navset_page,
-        ui.input_switch('is_trading_data', 'Sono candele?', False),
         ui.input_action_button("load_data", "Carica dati"),
         title='Carica',
         easy_close=True,

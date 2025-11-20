@@ -1,15 +1,22 @@
 # ui.py
 from shiny import ui
+import faicons as fa
 import shinyswatch
 from pathlib import Path
 
 app_dir = Path(__file__).parent
 
-rule_page = ui.page_fillable(
-    ui.input_text("rule", "Definisci una regola:", width="100%"), 
-    ui.output_text_verbatim("rule_output"),
-    ui.input_action_button("execute_rule", "Testa regola"),
-    ui.hr(),
+rule_page = ui.page_fluid(
+    ui.row(
+        ui.layout_columns(
+            ui.span(),
+            ui.h5('Select rule:'),
+            ui.input_select('rule_id', None, [], width='100%'),
+            ui.input_action_button("test_rule", "Test", width='100%', icon=fa.icon_svg("play")),
+            ui.input_switch('is_trading_data', 'Quant-mode', False),
+            col_widths=(6, 1, 3, 1, 1)
+        )
+    ),
     ui.h4("Risultato del test")
 
 )
@@ -28,24 +35,36 @@ navset_page = ui.navset_card_underline(
 
 # --- UI ---
 def main_ui():
-    app_ui = ui.page_sidebar(
-        ui.sidebar(
-            ui.img(src="logo.png", width="100%"),
-            ui.input_action_button("load_button", "Carica dati"), 
-            ui.input_select('target_column', 'Colonna target', []),
-            ui.input_action_button("add_rule", "Aggiungi regola"),
-            ui.input_action_button("test_rule", "Testa regola"),
-            fillable=True,
-            title=None,
+    app_ui = ui.page_fluid(
+        # ui.layout_column_wrap(
+        #     #ui.nav_control(ui.img(src="logo.png", width="100%")),
+        #     ui.column(
+        #         12,
+        ui.card(
+            ui.layout_columns(
+
+                ui.img(src="logo.png", width="100%"), # width 1
+                ui.input_action_button("load_button", label='Upload', icon=fa.icon_svg("folder-open")), # width 1
+                ui.input_action_button("add_rule", label='Rule', icon=fa.icon_svg("terminal")), # width 1
+                ui.span(), # width 4
+                ui.h4("Target:"), # width 1
+                ui.input_select('target_column', None, [],width='100%'), # width 2
+                # ui.span(), # width 1
+                # ui.input_action_button("test_rule", "Test rule", width='100%'), # width 2
+                col_widths=(1, 1, 1, 5, 1, 3), 
+                row_heights='auto', 
+
+            ),
         ),
         navset_page,
-        # ui.head_content(ui.include_css(app_dir / "css/bootstrap.min.css")),
-        title="re>el!o",
-        window_title="re>",
-        fillable=True,
-        fillable_mobile=True,
-        # theme=shinyswatch.theme.cerulean
+        #     )
+        # ),
+        title='re>el!o',
+        # window_title="re>",
+        lang='it',
+        theme=shinyswatch.theme.flatly
     )
+
     return app_ui
 
 app_ui = main_ui()
